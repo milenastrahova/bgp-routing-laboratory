@@ -1,0 +1,34 @@
+name: Docker BGP integration (manual)
+on:
+  workflow_dispatch:
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start FRR topology
+        run: python scripts/labctl.py up
+      - name: BGP baseline with sourced ICMP
+        run: python scripts/labctl.py check --timeout 120
+      - name: Simulated primary path outage and recovery
+        run: python scripts/labctl.py failover --timeout 120
+      - name: Unauthorized prefix injection
+        run: python scripts/labctl.py filter --timeout 120
+      - name: Collect results
+        if: always()
+        run: python scripts/labctl.py collect || true
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bgp-lab-observations
+          path: artifacts/
+          if-no-files-found: ignore
+      - name: Tear down isolated project
+        if: always()
+        run: python scripts/labctl.py down || true

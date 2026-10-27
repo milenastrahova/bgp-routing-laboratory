@@ -1,0 +1,88 @@
+name: gravity-bgp-lab
+
+x-router-common: &router-common
+  image: quay.io/frrouting/frr:10.7.1
+  cap_add:
+    - NET_ADMIN
+    - NET_RAW
+    - SYS_ADMIN
+  sysctls:
+    net.ipv4.ip_forward: "1"
+  restart: "no"
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  edge:
+    <<: *router-common
+    hostname: edge
+    volumes:
+      - ./configs/edge:/etc/frr:ro
+    networks:
+      edge_primary:
+        ipv4_address: 10.255.10.2
+      edge_backup:
+        ipv4_address: 10.255.20.2
+
+  transit_primary:
+    <<: *router-common
+    hostname: transit-primary
+    volumes:
+      - ./configs/transit_primary:/etc/frr:ro
+    networks:
+      edge_primary:
+        ipv4_address: 10.255.10.3
+      primary_core:
+        ipv4_address: 10.255.30.2
+
+  transit_backup:
+    <<: *router-common
+    hostname: transit-backup
+    volumes:
+      - ./configs/transit_backup:/etc/frr:ro
+    networks:
+      edge_backup:
+        ipv4_address: 10.255.20.3
+      backup_core:
+        ipv4_address: 10.255.40.2
+
+  core:
+    <<: *router-common
+    hostname: core
+    volumes:
+      - ./configs/core:/etc/frr:ro
+    networks:
+      primary_core:
+        ipv4_address: 10.255.30.3
+      backup_core:
+        ipv4_address: 10.255.40.3
+
+networks:
+  edge_primary:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+    ipam:
+      config:
+        - subnet: 10.255.10.0/29
+  edge_backup:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+    ipam:
+      config:
+        - subnet: 10.255.20.0/29
+  primary_core:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+    ipam:
+      config:
+        - subnet: 10.255.30.0/29
+  backup_core:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_ip_masquerade: "false"
+    ipam:
+      config:
+        - subnet: 10.255.40.0/29

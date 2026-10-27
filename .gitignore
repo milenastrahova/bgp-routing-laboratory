@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+artifacts/
+*.log
+.DS_Store
+.vscode/
+.idea/
+BGP_Evidence_*.zip

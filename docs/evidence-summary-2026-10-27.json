@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "elapsed_check_seconds": 3.406,
+    "observed_at_utc": "2026-10-27T15:32:54+00:00",
+    "status": "PASS"
+  },
+  "failover": {
+    "backup_path_observed": true,
+    "observed_at_utc": "2026-10-27T15:34:58+00:00",
+    "observed_failover_seconds": 0.516,
+    "poll_interval_seconds": 0.5,
+    "start_to_end_seconds": 11.969
+  },
+  "filter": {
+    "observation_seconds": 5.578,
+    "observed_at_utc": "2026-10-27T15:36:34+00:00",
+    "prefix": "198.18.0.1/32",
+    "received_by_core": false,
+    "received_by_edge": false,
+    "status": "PASS"
+  },
+  "observed_bestpaths_after_recovery": {
+    "core": {
+      "backup": {
+        "bestpath": false,
+        "local_preference": 100,
+        "nexthop": "10.255.40.2"
+      },
+      "primary": {
+        "bestpath": true,
+        "local_preference": 200,
+        "nexthop": "10.255.30.2"
+      },
+      "remote_prefix": "10.10.10.1/32",
+      "route_reported_installed": true
+    },
+    "edge": {
+      "backup": {
+        "bestpath": false,
+        "local_preference": 100,
+        "nexthop": "10.255.20.3"
+      },
+      "primary": {
+        "bestpath": true,
+        "local_preference": 200,
+        "nexthop": "10.255.10.3"
+      },
+      "remote_prefix": "10.40.40.1/32",
+      "route_reported_installed": true
+    }
+  },
+  "provenance": "User-supplied Windows 11 Docker Desktop runtime JSON; verified offline against declared invariants",
+  "raw_file_sha256": {
+    "baseline-20261027T153254Z.json": "7d3ab46b16feaae9ee1af0127653fb1469fee40bfb089af57a1cf0194f0d62d0",
+    "failover-20261027T153458Z.json": "c572f91eb91067b06ff7550c0e9acf6c185a979a3c367c6adf1dbc6203676181",
+    "filter-20261027T153634Z.json": "f06c80a1e4958db9bbd752bc199f6bd842b4585a8bec4a4e4685fb2513f2c775",
+    "snapshot-20261027T153705Z.json": "d814c4a0d60bd775a4b39e142debdb370233c4695e0659c0d25f5c6037fe4fc6"
+  },
+  "scope_limitations": [
+    "Input JSON is a user-supplied artifact, not a cryptographically authenticated sensor measurement.",
+    "Snapshot shows restored/normal state, not the forwarding table during outage.",
+    "Failover timing includes Docker/CLI overhead and 0.5 s polling; not packet loss or outage duration.",
+    "A finite-period forbidden-prefix absence does not establish universal route-leak resistance.",
+    "Neither packet latency, jitter, throughput nor hardware HFT characteristics were measured.",
+    "Two-way ICMP and primary recovery were verified by workstation console output; detailed ping transcript not in JSON."
+  ],
+  "snapshot_timestamp_utc": "2026-10-27T15:37:02+00:00",
+  "snapshotted_bgp_peer_perspectives_established": 8,
+  "source_zip_sha256": "e41a68f16bff1714eaf21a00090a5793ce814ba850c6e6656d78c65e2fc6757c",
+  "verification": "PASS"
+}

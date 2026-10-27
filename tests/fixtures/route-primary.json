@@ -1,0 +1,17 @@
+{
+  "prefix": "10.40.40.1/32",
+  "paths": [
+    {
+      "bestpath": {"overall": true},
+      "nexthops": [{"ip": "10.255.10.3", "used": true}],
+      "valid": true,
+      "aspath": {"string": "65020 65040"}
+    },
+    {
+      "bestpath": {"overall": false},
+      "nexthops": [{"ip": "10.255.20.3"}],
+      "valid": true,
+      "aspath": {"string": "65030 65040"}
+    }
+  ]
+}
