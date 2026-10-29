@@ -19,7 +19,7 @@
 | Unauthorized-prefix experiment | `py -3 scripts/labctl.py filter --timeout 120` | Test prefix `198.18.0.1/32` originated on transit_primary, export filtering prevented its appearance on edge/core during the finite check — PASS; cleanup was invoked; saved `filter-20261029T205515Z.json` |
 | Post-filter baseline | `py -3 scripts/labctl.py check --timeout 120` | All eight eBGP sessions Established, primary routes and two-way sourced ICMP PASS; saved `baseline-20261029T205530Z.json` |
 
-Earlier baseline snapshot also appeared as `baseline-20261029T203657Z.json`. Only filenames, printed assertions, and displayed results are documented here. **The screenshots did not establish that the cleanup prefix was independently absent after removal.** Follow-up read-only commands are provided below.
+Earlier baseline snapshot also appeared as `baseline-20261029T203657Z.json`. Only filenames, printed assertions, and displayed results are documented here. **A subsequent read-only inspection confirmed removal of the test address and absence of its BGP route on the three inspected routers.** The exact checks are documented below.
 
 ## Additional read-only post-cleanup verification
 
@@ -32,12 +32,12 @@ docker compose -f compose.yaml exec -T edge vtysh -c "show bgp ipv4 unicast 198.
 docker compose -f compose.yaml exec -T core vtysh -c "show bgp ipv4 unicast 198.18.0.1/32"
 ```
 
-The desired result is that the temporary loopback address and the injected prefix are absent on transit_primary and the prefix is absent on both endpoints. A fresh `labctl.py collect` after checking would provide an additional post-filter snapshot. **Not yet independently confirmed by the supplied screenshots.**
+**Observed in a later workstation PowerShell screenshot (29 October 2026):** `transit_primary` loopback displayed only `127.0.0.1/8`; the temporary address `198.18.0.1/32` was absent. FRRouting replied `% Network not in table` for `198.18.0.1/32` on `transit_primary`, `edge` and `core`. This directly supports cleanup and policy checks at those three routers at inspection time. `transit_backup` was not separately queried for this prefix. A fresh `labctl.py collect` could preserve the post-cleanup state in structured JSON, but that additional capture has not been provided.
 
 ## Interpretation and measurement boundaries
 
-- **Verified from screenshots:** a working isolated multi-AS FRRouting baseline; BGP preference and return-path reachability via sourced ICMP; an observed switch to the backup path during controlled primary stop; primary restored; finite control-plane route filtering; live cross-project control-plane auditing.
-- **Not established:** physical network/NIC performance, production link redundancy, actual packet-level BGP convergence or outage duration, p99 RTT under load, zero packet loss over a continuous interval, or complete absence of cleanup configuration without a specific read-only post-cleanup check.
+- **Verified from screenshots:** a working isolated multi-AS FRRouting baseline; BGP preference and return-path reachability via sourced ICMP; an observed switch to the backup path during controlled primary stop; primary restored; finite control-plane route filtering; observed post-cleanup absence of the test address and prefix on the three inspected routers; live cross-project control-plane auditing.
+- **Not established:** physical network/NIC performance, production link redundancy, actual packet-level BGP convergence or outage duration, p99 RTT under load, zero packet loss over a continuous interval, or physical network behavior outside the inspected Docker routers.
 - The roughly 5.39-second observation printed while waiting for all neighbors to become Established after restart includes polling/scheduling; it is **not a packet loss interval**.
 - This run did **not** reconfigure Windows routes or Linux host networking; fault injection was limited to the specified isolated Docker laboratory.
 - All data here concern a **self-contained educational laboratory**, not a commercial HFT or real exchange network.
