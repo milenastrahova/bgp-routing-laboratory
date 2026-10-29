@@ -61,6 +61,7 @@ py -3 scripts/labctl.py down
 
 - **GitHub Docker integration:** live four-router baseline, controlled outage and recovery, unauthorized-prefix rejection, diagnostic collection and cleanup. [Successful CI run](https://github.com/milenastrahova/bgp-routing-laboratory/actions/runs/40930552963).
 - **GitHub static CI:** config invariants, JSON validation, unit tests and Compose schema. [Successful CI run](https://github.com/milenastrahova/bgp-routing-laboratory/actions/runs/40930552962).
+- **Operator follow-up (29 October 2026):** baseline, live four-router snapshot, cross-project Python audit, controlled backup/restore and blocked-prefix experiment all reported PASS on Windows/Docker. [Workstation verification](docs/workstation-verification-2026-10-29.md). Terminal evidence only; original local JSON files not reviewed for this entry.
 - **Operator field evidence (27 October 2026):** eight directional neighbor states observed Established; primary Local Preference and path preference observed; sourced ICMP baseline and recovery checks; blocked test prefix absent at endpoints. [Validation matrix](docs/validation.md) · [Field report](docs/field-report-2026-10-27.md).
 - **Architecture exercise:** two-venue colocation connectivity, physical diversity, cross-connect planning, security and rollback. [Data Center Connectivity Design Case](docs/datacenter-connectivity-design.md). This is a documented exercise, **not** installed physical infrastructure.
 
