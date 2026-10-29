@@ -195,3 +195,7 @@ The GitHub publishing bundle includes a cross-platform byte-preservation regress
 See [technical defense guide](docs/interview-defense.md) and [validation matrix](docs/validation.md). The most recent static GitHub Actions validation passed on October 27, 2026. A dedicated Docker BGP integration workflow will now run on each main-branch push, separately from static tests; never mistake a static green badge for a live routing test. Verify its individual status in GitHub Actions.
 
 **Legacy internal identifier:** `gravity-bgp-lab` is the Docker Compose project identity used for bounded, safety-checked commands. The project is an independent educational four-AS lab; it is not affiliated with or deployed at any employer. Do not casually rename this identity while a local lab is running or while other tools are configured to recognize it. A coordinated migration would require shutdown and cross-repository verification.
+
+## Data center network design study
+
+The [hypothetical dual-venue colocation connectivity exercise](docs/datacenter-connectivity-design.md) documents physical path diversity, cross-connect provisioning, BGP routing policies, Linux/NIC measurement planning, security and rollback. **It is an architectural exercise, not a completed cross-connect installation or actual trading deployment.**
