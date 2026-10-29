@@ -128,12 +128,14 @@ class TestConfigFiles(unittest.TestCase):
         self.assertIn('"-I", "10.10.10.1", "10.40.40.1"', script)
         self.assertIn('"-I", "10.40.40.1", "10.10.10.1"', script)
 
-    def test_integration_ci_is_manually_triggered(self):
+    def test_integration_ci_is_triggered_for_push_and_manual_review(self):
         workflow = (ROOT / ".github" / "workflows" / "integration.yml").read_text()
         self.assertIn("workflow_dispatch:", workflow)
-        self.assertNotIn("  push:", workflow)
+        self.assertIn("  push:", workflow)
+        self.assertIn("    branches: [main]", workflow)
         self.assertIn("failover --timeout", workflow)
         self.assertIn("filter --timeout", workflow)
+        self.assertIn("if: always()", workflow)
 
     def test_service_names_match_controller(self):
         import re

@@ -36,7 +36,7 @@
     "scripts/verify_evidence.py": "72ffb90d3b93439847e577c986f4c3ad9393e50a630880c85b5d68f1525aee93",
     "tests/fixtures/route-primary.json": "e0a03cb9dfa8ddca1fd784ea54b3aa4e49c037f92d7d131b29c8c0ec481871e2",
     "tests/test_evidence.py": "255efc57a95107654f67b6eec8a13015d68814caa6d7d08d3d26f15c0b6ee3b7",
-    "tests/test_lab.py": "f60ad6b9b8017090ec1137cdc82b7149711a4aaf66f145095160d2a2fa07ca0b"
+    "tests/test_lab.py": "cd89f62904acb4bfd53bb0b7dc827e1f2059349d63f50642dbfa700b9d194389"
   },
   "project": "BGP Routing Laboratory",
   "status": {
