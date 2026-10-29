@@ -189,3 +189,9 @@ The result is `artifacts/BGP_Evidence_<UTC-timestamp>.zip` with the unchanged lo
 ## Windows publisher fix
 
 The GitHub publishing bundle includes a cross-platform byte-preservation regression test for evidence ZIPs. The fixed publisher package passes offline tests on Linux and is designed to avoid CRLF/LF mismatches on Windows; real Windows rerun still needs confirmation.
+
+## Portfolio validation and interview defense
+
+See [technical defense guide](docs/interview-defense.md) and [validation matrix](docs/validation.md). The most recent static GitHub Actions validation passed on October 27, 2026. A dedicated Docker BGP integration workflow will now run on each main-branch push, separately from static tests; never mistake a static green badge for a live routing test. Verify its individual status in GitHub Actions.
+
+**Legacy internal identifier:** `gravity-bgp-lab` is the Docker Compose project identity used for bounded, safety-checked commands. The project is an independent educational four-AS lab; it is not affiliated with or deployed at any employer. Do not casually rename this identity while a local lab is running or while other tools are configured to recognize it. A coordinated migration would require shutdown and cross-repository verification.

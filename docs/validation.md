@@ -26,3 +26,9 @@ py -3 .\scripts\verify_evidence.py .\BGP_Evidence_v0.2.zip
 ```
 
 Place private evidence ZIP inside `artifacts/` instead of the repository root to benefit from `.gitignore`, and adjust the relative path in the command. Results are **not** digitally signed. Independent parsing establishes internal consistency, not incontrovertible authenticity.
+
+## GitHub CI status after original field validation
+
+- Static validation: **PASS** in GitHub Actions run [40563373193](https://github.com/milenastrahova/bgp-routing-laboratory/actions/runs/40563373193).
+- Docker BGP integration: **configured to run automatically on new pushes** as well as by manual dispatch. The outcome of the new hosted run must be checked separately. Tests include baseline, primary outage, route filtering, evidence capture and cleanup.
+- The original October 27 field observations remain valid laboratory evidence, but are not production BGP convergence measurements.

@@ -1,5 +1,7 @@
-name: Docker BGP integration (manual)
+name: Docker BGP integration
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
